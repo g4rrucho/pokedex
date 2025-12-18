@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -27,11 +27,16 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { isCaught } = usePokedex();
+  const navigate = useNavigate();
   const displayName = pokemon.name.replaceAll('-', ' ');
   const caught = isCaught(pokemon.id);
 
   const onHover = useCallback(() => setIsHovered(true), []);
   const onLeave = useCallback(() => setIsHovered(false), []);
+  const onToggle = useCallback(() => {
+    if (isSelectionMode) onToggleSelection?.(pokemon.id);
+    else void navigate(`/pokemon/${pokemon.id}`);
+  }, [isSelectionMode, onToggleSelection, navigate, pokemon.id]);
 
   return (
     <TableRow
@@ -39,7 +44,7 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
       className="h-12 hover:bg-gray-50 dark:hover:bg-gray-800"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      onClick={() => {}}
+      onClick={onToggle}
     >
       {isSelectionMode && (
         <TableCell>

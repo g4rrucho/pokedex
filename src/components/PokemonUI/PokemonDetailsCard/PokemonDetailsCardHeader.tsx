@@ -43,7 +43,7 @@ const PokemonDetailsCardHeader: React.FC<TPokemonHeaderProps> = ({
             <img className="h-8 w-8 object-contain" src={PokeBall} />
           )}
         </div>
-        <p className="mb-4 text-xl text-gray-600 md:text-left">
+        <p className="mb-4 text-xl text-gray-600 md:text-left dark:text-gray-200">
           #{id.toString().padStart(3, '0')}
         </p>
 

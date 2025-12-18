@@ -5,6 +5,7 @@ import { TPokemonListItem } from '@/types';
 import PokemonListTableRow from '@/components/PokemonList/PokemonListTableRow';
 import PokemonTableRowSkeleton from '@/components/PokemonUI/PokemonTable/PokemonTableRowSkeleton';
 import PokemonTableHeaders from '@/components/PokemonUI/PokemonTable/PokemonTableHeaders';
+import { Card, CardContent } from '@/components/ui/card';
 
 type TPokemonListTableProps = {
   isLoading: boolean;
@@ -19,7 +20,14 @@ const PokemonListTable: React.FC<TPokemonListTableProps> = ({
   limit,
   pokemons,
 }) => {
-  if (isError) return <div>Error loading Pokémon list</div>;
+  if (isError)
+    return (
+      <Card>
+        <CardContent>
+          <p className="text-destructive">Error loading Pokémon list</p>
+        </CardContent>
+      </Card>
+    );
 
   return (
     <div className="rounded-md border">

@@ -37,7 +37,7 @@ const PokemonListPage: React.FC = () => {
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4">
-      <PokemonInput input={search} setInput={setSearchParam} />
+      {!isError && <PokemonInput input={search} setInput={setSearchParam} />}
       <div className="lg:hidden">
         <PokemonListCards
           limit={limit}
@@ -54,16 +54,19 @@ const PokemonListPage: React.FC = () => {
           pokemons={pokemons?.results || []}
         />
       </div>
-      <PaginationControl
-        isVisible={!isLoading || isError || !!pokemons}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-        totalCount={pokemons?.count || 0}
-        totalPages={totalPages}
-        hasNext={hasNext}
-        hasPrevious={hasPrevious}
-        limit={limit}
-      />
+
+      {!isError && (
+        <PaginationControl
+          isVisible={!isLoading || isError || !!pokemons}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          totalCount={pokemons?.count || 0}
+          totalPages={totalPages}
+          hasNext={hasNext}
+          hasPrevious={hasPrevious}
+          limit={limit}
+        />
+      )}
     </div>
   );
 };
