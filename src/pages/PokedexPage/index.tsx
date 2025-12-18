@@ -64,7 +64,7 @@ const PokedexPage = () => {
   if (pokemonCaughtIDs.length === 0) return <PokedexEmptyState />;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8">
       <PokedexHeader totalCaught={pokemonCaughtIDs.length} />
 
       {/* Filters */}
@@ -75,15 +75,17 @@ const PokedexPage = () => {
       />
 
       {/* Selection mode toggle */}
-      <PokedexSelectionControl
-        isSelectionMode={isSelectionMode}
-        onCancel={handleCancel}
-        totalCount={filteredPokemons.length}
-        onSelectAll={toggleSelectAll}
-        onDelete={handleBulkDelete}
-        onToggleSelectionMode={toggleSelectionMode}
-        selectedCount={selectedIDs.size}
-      />
+      {filteredPokemons.length !== 0 && (
+        <PokedexSelectionControl
+          isSelectionMode={isSelectionMode}
+          onCancel={handleCancel}
+          totalCount={filteredPokemons.length}
+          onSelectAll={toggleSelectAll}
+          onDelete={handleBulkDelete}
+          onToggleSelectionMode={toggleSelectionMode}
+          selectedCount={selectedIDs.size}
+        />
+      )}
 
       {/* Results info */}
       <PokedexResultsInfo

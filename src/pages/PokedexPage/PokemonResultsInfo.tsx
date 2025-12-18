@@ -13,7 +13,7 @@ const PokedexResultsInfo = ({
   onExport,
 }: PokedexResultsInfoProps) => (
   <div className="mb-4 flex items-center justify-between">
-    <div className="text-sm text-gray-600">
+    <div className="text-sm text-gray-600 dark:text-gray-200">
       {filteredCount !== totalCount ? (
         <>
           Showing {filteredCount} of {totalCount} Pokémon
@@ -22,6 +22,7 @@ const PokedexResultsInfo = ({
         <>{totalCount} Pokémon in your Pokédex</>
       )}
     </div>
+
     {filteredCount > 0 && (
       <Button variant="outline" size="sm" onClick={onExport} className="gap-2">
         <Download className="h-4 w-4" />

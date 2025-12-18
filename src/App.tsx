@@ -15,7 +15,7 @@ const App: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" Component={PokemonListPage} />
-        <Route path="/pokedex" Component={PokedexPage} />
+        <Route path="/my-pokedex" Component={PokedexPage} />
         <Route path="/pokemon/:id" Component={PokemonDetailsPage} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -33,11 +33,9 @@ const PokedexSelectionControl = ({
   }
 
   return (
-    <div className="mb-4">
-      <Button variant="outline" onClick={onToggleSelectionMode}>
-        Select Pokémon
-      </Button>
-    </div>
+    <Button className='w-36' variant="outline" onClick={onToggleSelectionMode}>
+      Select Pokémon
+    </Button>
   );
 };
 

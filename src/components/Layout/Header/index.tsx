@@ -33,7 +33,7 @@ const Header: React.FC = () => {
           <nav className="flex items-center gap-2 sm:gap-4">
             <HeaderLink url="/" testId="nav-pokemon-list" label="All Pokémon" />
             <HeaderLink
-              url="/pokedex"
+              url="/my-pokedex"
               testId="nav-pokedex"
               label="My Pokédex"
             />
