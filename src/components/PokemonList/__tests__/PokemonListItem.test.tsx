@@ -46,7 +46,7 @@ describe('PokemonList', () => {
 
     expect(screen.getByTestId('pokemon-item-1')).toBeInTheDocument();
     expect(screen.getByTestId('pokemon-name-1')).toHaveTextContent('bulbasaur');
-    expect(screen.getByTestId('pokemon-id-1')).toHaveTextContent('ID: 0001');
+    expect(screen.getByTestId('pokemon-id-1')).toHaveTextContent('#0001');
     expect(screen.getByTestId('pokemon-image-1')).toHaveAttribute(
       'src',
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'
