@@ -51,16 +51,16 @@ const PokemonCard: React.FC<TPokemonCardProps> = ({
         )}
         <div>
           <p
-            className="line-clamp-1 text-lg font-bold text-ellipsis whitespace-break-spaces text-black capitalize"
+            className="line-clamp-1 text-lg font-bold text-ellipsis whitespace-break-spaces text-black capitalize dark:text-white"
             data-testid={`pokemon-name-${pokemon.id}`}
           >
             {displayName}
           </p>
           <p
-            className="text-sm text-gray-500"
+            className="text-sm text-gray-700 dark:text-gray-400"
             data-testid={`pokemon-id-${pokemon.id}`}
           >
-            ID: {pokemon.id.toString().padStart(4, '0')}
+            #{pokemon.id.toString().padStart(4, '0')}
           </p>
           {caughtAt && (
             <p className="text-xs text-gray-400">Caught: {formattedCaughtAt}</p>

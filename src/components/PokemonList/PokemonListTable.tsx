@@ -9,14 +9,14 @@ import PokemonTableHeaders from '@/components/PokemonUI/PokemonTable/PokemonTabl
 type TPokemonListTableProps = {
   isLoading: boolean;
   isError: boolean;
-  limit?: number;
+  limit: number;
   pokemons: TPokemonListItem[];
 };
 
 const PokemonListTable: React.FC<TPokemonListTableProps> = ({
   isError,
   isLoading,
-  limit = 20,
+  limit,
   pokemons,
 }) => {
   if (isError) return <div>Error loading Pokémon list</div>;

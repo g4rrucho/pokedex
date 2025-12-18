@@ -24,10 +24,10 @@ const BulkOperationsBar: React.FC<TBulkOperationsBarProps> = ({
           {selectedCount} selected
         </span>
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
           onClick={onSelectAll}
-          className="text-blue-700 hover:text-blue-900"
+          className="text-gray-700 hover:text-gray-900"
         >
           {selectedCount === totalCount ? 'Deselect all' : 'Select all'}
         </Button>
@@ -43,7 +43,12 @@ const BulkOperationsBar: React.FC<TBulkOperationsBarProps> = ({
           <Trash2 className="h-4 w-4" />
           <span className="hidden sm:block">Delete</span>
         </Button>
-        <Button variant="ghost" size="sm" onClick={onCancel} className="gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onCancel}
+          className="gap-2"
+        >
           <X className="h-4 w-4" />
           <span className="hidden sm:block">Cancel</span>
         </Button>

@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/fe-engineering-challenge/',
+  base: '/pokedex/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

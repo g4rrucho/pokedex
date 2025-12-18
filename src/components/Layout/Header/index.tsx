@@ -23,7 +23,7 @@ const Header: React.FC = () => {
             </HeaderLink>
 
             {isDetailPage && (
-              <HeaderLink testId="nav-back-button" url="/">
+              <HeaderLink testId="nav-back-button" goBack={true}>
                 <ChevronLeft size={20} />
                 <span className="hidden sm:block">Back</span>
               </HeaderLink>

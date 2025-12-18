@@ -1,37 +1,49 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import usePokemons from '@/hooks/usePokemons';
-
+import usePokemonList from '@/hooks/usePokemonList';
 import PokemonListCards from '@/components/PokemonList/PokemonListCards';
 import PokemonListTable from '@/components/PokemonList/PokemonListTable';
 import PaginationControl from '@/components/PokemonList/PaginationControl';
+import PokemonInput from '@/pages/PokemonListPage/PokemonInput';
 
 const PokemonListPage: React.FC = () => {
   const limit = 10;
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get('page') || '1', 10);
-
-  const handlePageChange = (newPage: number) => {
-    setSearchParams({ page: newPage.toString() });
-  };
-
-  const { data, isLoading, isError } = usePokemons(
-    limit,
-    (currentPage - 1) * limit
+  const [search, setSearch] = useState<string>(
+    searchParams.get('search') || ''
   );
 
-  const totalPages = data ? Math.ceil(data.count / limit) : 0;
-  const hasNext = !!data?.next;
-  const hasPrevious = !!data?.previous;
+  const setSearchParam = (value: string) => {
+    setSearchParams({ search: value, page: '1' });
+    setSearch(value);
+  };
+
+  const {
+    pokemons,
+    isLoading,
+    isError,
+    totalPages,
+    hasNext,
+    hasPrevious,
+    currentPage,
+  } = usePokemonList(limit);
+
+  const handlePageChange = (newPage: number) => {
+    const params: Record<string, string> = { page: newPage.toString() };
+    if (search) params.search = search;
+    setSearchParams(params);
+  };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-4">
+    <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4">
+      <PokemonInput input={search} setInput={setSearchParam} />
       <div className="lg:hidden">
         <PokemonListCards
           limit={limit}
           isError={isError}
           isLoading={isLoading}
-          pokemons={data?.results || []}
+          pokemons={pokemons?.results || []}
         />
       </div>
       <div className="hidden lg:block">
@@ -39,14 +51,14 @@ const PokemonListPage: React.FC = () => {
           limit={limit}
           isError={isError}
           isLoading={isLoading}
-          pokemons={data?.results || []}
+          pokemons={pokemons?.results || []}
         />
       </div>
       <PaginationControl
-        isVisible={!isLoading || isError || !!data}
+        isVisible={!isLoading || isError || !!pokemons}
         currentPage={currentPage}
         onPageChange={handlePageChange}
-        totalCount={data?.count || 0}
+        totalCount={pokemons?.count || 0}
         totalPages={totalPages}
         hasNext={hasNext}
         hasPrevious={hasPrevious}

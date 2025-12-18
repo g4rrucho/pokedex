@@ -1,11 +1,14 @@
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { TableCell, TableRow } from '@/components/ui/table';
+import { Checkbox } from '@/components/ui/checkbox';
 
+import { formatDateString } from '@/utils/formatDateString';
+import { cn } from '@/lib/utils';
 import usePokedex from '@/hooks/usePokedex';
 import { TPokemonDataRow } from '@/components/PokemonUI/PokemonTable/types';
-import { Checkbox } from '@/components/ui/checkbox';
-import { formatDateString } from '@/utils/formatDateString';
+import PokemonTypeBadge, { PokemonType } from '@/components/PokemonTypeBadge';
 
 type TPokemonTableRowProps = TPokemonDataRow & {
   isSelectionMode?: boolean;
@@ -22,12 +25,22 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
   isSelected = false,
   onToggleSelection,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const { isCaught } = usePokedex();
   const displayName = pokemon.name.replaceAll('-', ' ');
   const caught = isCaught(pokemon.id);
 
+  const onHover = useCallback(() => setIsHovered(true), []);
+  const onLeave = useCallback(() => setIsHovered(false), []);
+
   return (
-    <TableRow key={pokemon.id} className="h-12 hover:bg-gray-50">
+    <TableRow
+      key={pokemon.id}
+      className="h-12 hover:bg-gray-50 dark:hover:bg-gray-800"
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={() => {}}
+    >
       {isSelectionMode && (
         <TableCell>
           <Checkbox
@@ -39,7 +52,7 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
       <TableCell className="font-medium">
         <Link
           to={`/pokemon/${pokemon.id}`}
-          className="text-blue-600 hover:text-blue-800 hover:underline"
+          className={cn(isHovered && 'underline')}
         >
           #{pokemon.id.toString().padStart(3, '0')}
         </Link>
@@ -55,7 +68,10 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
           )}
           <Link
             to={`/pokemon/${pokemon.id}`}
-            className="truncate font-medium text-blue-600 capitalize hover:text-blue-800 hover:underline"
+            className={cn(
+              'truncate font-medium text-white capitalize hover:underline',
+              isHovered && 'underline'
+            )}
           >
             {displayName}
           </Link>
@@ -63,13 +79,11 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
       </TableCell>
       <TableCell>
         <div className="flex gap-1">
-          {pokemon.types.slice(0, 2).map((type) => (
-            <span
-              key={type.type.name}
-              className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 capitalize"
-            >
-              {type.type.name}
-            </span>
+          {pokemon.types.slice(0, 2).map(({ slot, type }) => (
+            <PokemonTypeBadge
+              key={`${slot}-${type.name}`}
+              type={type.name as PokemonType}
+            />
           ))}
         </div>
       </TableCell>

@@ -50,6 +50,11 @@ const PokedexPage = () => {
     onBulkDelete: releasePokemons,
   });
 
+  const handleCancel = useCallback(() => {
+    clearSelection();
+    toggleSelectionMode();
+  }, [toggleSelectionMode, clearSelection]);
+
   const handleExport = useCallback(() => {
     const dataToExport = filteredPokemons.map((id) => pokemonCaught[id]);
     const timestamp = new Date().toISOString().split('T')[0];
@@ -72,7 +77,7 @@ const PokedexPage = () => {
       {/* Selection mode toggle */}
       <PokedexSelectionControl
         isSelectionMode={isSelectionMode}
-        onCancel={clearSelection}
+        onCancel={handleCancel}
         totalCount={filteredPokemons.length}
         onSelectAll={toggleSelectAll}
         onDelete={handleBulkDelete}

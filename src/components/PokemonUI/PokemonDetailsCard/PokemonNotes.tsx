@@ -38,11 +38,13 @@ const PokemonNotes: React.FC<TPokemonNotesProps> = ({
   return (
     <div className="space-y-3">
       <h3 className="text-lg font-semibold">My Notes</h3>
-      <div className="rounded-lg bg-gray-50 p-3">
+      <div className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
         {notes ? (
-          <p className="text-sm text-gray-700">{notes}</p>
+          <p className="text-sm text-gray-700 dark:text-white">{notes}</p>
         ) : (
-          <p className="text-sm text-gray-500 italic">No notes yet</p>
+          <p className="text-sm text-gray-400 italic dark:text-gray-400">
+            No notes yet
+          </p>
         )}
       </div>
 

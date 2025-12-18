@@ -5,6 +5,7 @@ import PokeBall from '@/assets/pokeball.png';
 import { TPokemon } from '@/types';
 import { Button } from '@/components/ui/button';
 import ShareButton from '@/components/ShareButton';
+import PokemonTypeBadge, { PokemonType } from '@/components/PokemonTypeBadge';
 
 type TPokemonHeaderProps = {
   pokemon: TPokemon;
@@ -17,7 +18,7 @@ const PokemonDetailsCardHeader: React.FC<TPokemonHeaderProps> = ({
   pokemon,
   onToggleCatch,
   isCaught,
-  isShared
+  isShared,
 }) => {
   const { id, name, sprites, types } = pokemon;
 
@@ -48,13 +49,11 @@ const PokemonDetailsCardHeader: React.FC<TPokemonHeaderProps> = ({
 
         {/* Types */}
         <div className="flex flex-wrap justify-center gap-2 md:justify-start">
-          {types.map((type) => (
-            <span
-              key={type.type.name}
-              className="rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-800 capitalize"
-            >
-              {type.type.name}
-            </span>
+          {types.map(({ type, slot }) => (
+            <PokemonTypeBadge
+              key={`${slot}-${type.name}`}
+              type={type.name as PokemonType}
+            />
           ))}
         </div>
       </div>
