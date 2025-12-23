@@ -74,7 +74,7 @@ const PokemonTableRow: React.FC<TPokemonTableRowProps> = ({
           <Link
             to={`/pokemon/${pokemon.id}`}
             className={cn(
-              'truncate font-medium text-white capitalize hover:underline',
+              'truncate font-medium capitalize hover:underline',
               isHovered && 'underline'
             )}
           >
